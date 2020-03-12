@@ -49,7 +49,7 @@ void Draw() {
     for (int i = -1; i <= height; i++) {
         for (int j = -1; j <= width; j++) {
             if (i == -1 || i == height || j == -1 || j == width) {
-                cout << "*";
+                cout << "#";
             } else if (i == hy && j == hx) {
                 cout << "O";
             } else if (i == fy && j == fx) {
@@ -70,7 +70,9 @@ void Draw() {
         }
         cout << endl;
     }
-    cout << "SCORE: " << score << endl;
+    cout << "a) left | " <<  "d) right | " << "w) up | " << "s) down" << endl;
+    cout << "x) exit game" << endl;
+    cout << "score: " << score << endl;
 }
 
 bool Input() {
@@ -136,18 +138,20 @@ void Logic() {
         hx = ohx;
         hy = ohy;
     } else {
+        for(int i = 0; i < nTail; i++) {
+            if (tailX[i] == hx && tailY[i] == hy) {
+                gameOver = true;
+                hx = ohx;
+                hy = ohy;
+                return;
+            }
+        }
         for (int i = nTail-1; i > 0; i--) {
             tailX[i] = tailX[i-1];
             tailY[i] = tailY[i-1];
         }
         tailX[0] = ohx;
         tailY[0] = ohy;
-    }
-    for(int i = 0; i < nTail; i++) {
-        if (tailX[i] == hx && tailY[i] == hy) {
-            gameOver = true;
-            return;
-        }
     }
 }
 
